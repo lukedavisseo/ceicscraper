@@ -65,12 +65,16 @@ if submit:
 		for results in range(0,len(org)):
 			link = (org[results]['link'])
 			ext = tldextract.extract(link)
-			serp['urls'].append(link)
-			serp['titles'].append(org[results]['title'])
-			serp['meta_desc'].append(org[results]['snippet'])
 			if ext.registered_domain in competitor_urls:
+				serp['urls'].append(link)
+				serp['titles'].append(org[results]['title'])
+				serp['meta_desc'].append(org[results]['snippet'])
 				serp['competitor'].append("Competitor match found")
 				st.write(f'Competitor match found: {ext.registered_domain}')
+			else:
+				serp['urls'].append(link)
+				serp['titles'].append(org[results]['title'])
+				serp['meta_desc'].append(org[results]['snippet'])
 					
 		df = {key:pd.Series(value, dtype='object') for key, value in serp.items()}
 		serp_df = pd.DataFrame(df)
