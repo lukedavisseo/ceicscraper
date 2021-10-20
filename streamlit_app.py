@@ -71,7 +71,11 @@ if submit:
 				serp['meta_desc'].append(org[results]['snippet'])
 				serp['competitor'].append("Competitor match found")
 				st.write(f'Competitor match found: {ext.registered_domain}')
-			else:
-				st.write("No competitors found")
+			
+		df = {key:pd.Series(value, dtype='object') for key, value in serp.items()}
+		serp_df = pd.DataFrame(df)
+		serp_df_csv = serp_df.to_csv()
+
+		st.download_button(label=f'Download SERP data for {k}', data=serp_df_csv, file_name=f'{k}_serp.csv', mime='text/csv')
 
 	msg = st.markdown('Completed!')
