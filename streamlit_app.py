@@ -41,7 +41,9 @@ if submit:
 
 	msg = st.markdown('Processing, please wait...')
 
-	for k in keywords:		
+	for k in keywords:
+		
+		st.header(f'{k}')
 
 		google_search_url = 'http://www.google.com/search?q=' + k.replace(' ', '+')
 
@@ -60,7 +62,6 @@ if submit:
 			continue
 
 		for results in range(0,len(org)):
-			st.header(f'{k}')
 			link = (org[results]['link'])
 			serp['urls'].append(link)
 			serp['titles'].append(org[results]['title'])
