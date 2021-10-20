@@ -63,15 +63,18 @@ if submit:
 
 		for results in range(0,len(org)):
 			link = (org[results]['link'])
-			serp['urls'].append(link)
-			serp['titles'].append(org[results]['title'])
-			serp['meta_desc'].append(org[results]['snippet'])
-
 			for c in competitor_urls:
 				if c in link:
+					serp['urls'].append(link)
+					serp['titles'].append(org[results]['title'])
+					serp['meta_desc'].append(org[results]['snippet'])
 					serp['competitor'].append("Competitor match found")
 					st.write(f'Competitor match found: {c}')
-
+				else:
+					serp['urls'].append(link)
+					serp['titles'].append(org[results]['title'])
+					serp['meta_desc'].append(org[results]['snippet'])
+					
 		df = {key:pd.Series(value, dtype='object') for key, value in serp.items()}
 		serp_df = pd.DataFrame(df)
 		serp_df_csv = serp_df.to_csv()
