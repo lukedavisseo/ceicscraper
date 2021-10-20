@@ -4,6 +4,7 @@ import streamlit as st
 from scraper_api import ScraperAPIClient
 import pandas as pd
 import json
+import tldextract
 
 api_key = st.text_input("Enter ScraperAPI key")
 
@@ -63,13 +64,13 @@ if submit:
 
 		for results in range(0,len(org)):
 			link = (org[results]['link'])
-			for c in competitor_urls:
-				if c in link:
-					serp['competitor'].append("Competitor match found")
-					st.write(f'Competitor match found: {c}')
+			ext = tldextract.extract(link)
 			serp['urls'].append(link)
 			serp['titles'].append(org[results]['title'])
 			serp['meta_desc'].append(org[results]['snippet'])
+			if ext.registered_domain in competitor_urls:
+				serp['competitor'].append("Competitor match found")
+				st.write(f'Competitor match found: {c}')
 					
 		df = {key:pd.Series(value, dtype='object') for key, value in serp.items()}
 		serp_df = pd.DataFrame(df)
