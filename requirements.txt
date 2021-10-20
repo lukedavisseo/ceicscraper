@@ -1,1 +1,2 @@
 streamlit==1.0.0
+scraperapi-sdk==0.2.2
