@@ -5,9 +5,11 @@ from scraper_api import ScraperAPIClient
 import pandas as pd
 import json
 
+api_key = st.text_input("Enter ScraperAPI key")
+
 # ScraperAPI auth
 
-client = ScraperAPIClient('933270dcbae51fc4c8bc28834f0f7e60')
+client = ScraperAPIClient(api_key)
 
 # SERP data to put into a DataFrame
 
@@ -45,7 +47,7 @@ if submit:
 
 		st.write(google_search_url)
 
-		payload = {'api_key': '933270dcbae51fc4c8bc28834f0f7e60', 'url': google_search_url, 'autoparse': 'true'}
+		payload = {'api_key': api_key, 'url': google_search_url, 'autoparse': 'true'}
 		headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 		proxy_url = requests.get('http://api.scraperapi.com/?', payload, headers=headers)
 
