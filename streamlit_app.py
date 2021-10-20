@@ -70,7 +70,7 @@ if submit:
 			serp['meta_desc'].append(org[results]['snippet'])
 			if ext.registered_domain in competitor_urls:
 				serp['competitor'].append("Competitor match found")
-				st.write(f'Competitor match found: {c}')
+				st.write(f'Competitor match found: {ext.registered_domain}')
 					
 		df = {key:pd.Series(value, dtype='object') for key, value in serp.items()}
 		serp_df = pd.DataFrame(df)
