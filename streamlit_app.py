@@ -57,9 +57,9 @@ if submit:
 		try:
 			response = proxy_url.json()
 			org = response.get("organic_results")
-			link = (org[results]['link'])
 
 			for results in range(0,len(org)):
+				link = (org[results]['link'])
 				ext = tldextract.extract(link)
 				if ext.registered_domain in competitor_urls:
 					serp['urls'].append(link)
@@ -71,11 +71,7 @@ if submit:
 				st.write('No competitors found')
 					
 		except (ValueError, Timeout, SSLError, MissingSchema) as e:
-			if e == ValueError:
-				st.error(f"{e} found! Continuing...")
-			else:
-				st.error(f"{e} found for {link}! Continuing...")
-			continue
+			st.error(f"{e} found! Continuing...")
 			
 		df = {key:pd.Series(value, dtype='object') for key, value in serp.items()}
 		serp_df = pd.DataFrame(df)
