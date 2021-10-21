@@ -57,9 +57,9 @@ if submit:
 		try:
 			response = proxy_url.json()
 			org = response.get("organic_results")
+			link = (org[results]['link'])
 
 			for results in range(0,len(org)):
-				link = (org[results]['link'])
 				ext = tldextract.extract(link)
 				if ext.registered_domain in competitor_urls:
 					serp['urls'].append(link)
