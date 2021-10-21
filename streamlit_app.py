@@ -58,19 +58,24 @@ if submit:
 			response = proxy_url.json()
 			org = response.get("organic_results")
 
-		except (ValueError):
-			st.error(f"Error found! Continuing...")
+			for results in range(0,len(org)):
+				link = (org[results]['link'])
+				ext = tldextract.extract(link)
+				if ext.registered_domain in competitor_urls:
+					serp['urls'].append(link)
+					serp['titles'].append(org[results]['title'])
+					serp['meta_desc'].append(org[results]['snippet'])
+					serp['competitor'].append("Competitor match found")
+					st.write(f'Competitor match found: {ext.registered_domain}')
+				else:
+					st.write('No competitors found')
+					
+		except (ValueError, Timeout, SSLError, MissingSchema) as e:
+			if e == ValueError:
+				st.error(f"{e} found! Continuing...")
+			else:
+				st.error(f"{e} found for {link}! Continuing...")
 			continue
-
-		for results in range(0,len(org)):
-			link = (org[results]['link'])
-			ext = tldextract.extract(link)
-			if ext.registered_domain in competitor_urls:
-				serp['urls'].append(link)
-				serp['titles'].append(org[results]['title'])
-				serp['meta_desc'].append(org[results]['snippet'])
-				serp['competitor'].append("Competitor match found")
-				st.write(f'Competitor match found: {ext.registered_domain}')
 			
 		df = {key:pd.Series(value, dtype='object') for key, value in serp.items()}
 		serp_df = pd.DataFrame(df)
