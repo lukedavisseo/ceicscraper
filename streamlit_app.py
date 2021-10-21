@@ -67,8 +67,8 @@ if submit:
 					serp['meta_desc'].append(org[results]['snippet'])
 					serp['competitor'].append("Competitor match found")
 					st.write(f'Competitor match found: {ext.registered_domain}')
-				else:
-					st.write('No competitors found')
+			if not serp['competitor']:
+				st.write('No competitors found')
 					
 		except (ValueError, Timeout, SSLError, MissingSchema) as e:
 			if e == ValueError:
