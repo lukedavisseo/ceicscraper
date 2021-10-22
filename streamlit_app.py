@@ -70,10 +70,7 @@ if submit:
 						serp['meta_desc'].append(org[results]['snippet'])
 						serp['competitor'].append("Competitor match found")
 						st.write(f'Competitor match found: {ext.registered_domain}')
-				if serp['competitor']:
-					# For testing
-					st.write(serp['competitor'])
-				else:
+				if not serp['competitor']:
 					st.write('No competitors found')
 				break
 
