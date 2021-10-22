@@ -55,8 +55,8 @@ if submit:
 		headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 		proxy_url = requests.get('http://api.scraperapi.com/?', payload, headers=headers)
 		
-		try:
-			for i in range(5):
+		for i in range(5):
+			try:
 				time.sleep(2)
 				response = proxy_url.json()
 				org = response.get("organic_results")
@@ -70,15 +70,16 @@ if submit:
 						serp['meta_desc'].append(org[results]['snippet'])
 						serp['competitor'].append("Competitor match found")
 						st.write(f'Competitor match found: {ext.registered_domain}')
-				if not serp['competitor']:
+				if serp['competitor']:
 					# For testing
 					st.write(serp['competitor'])
+				else:
 					st.write('No competitors found')
 				break
-					
-		except (ValueError, Timeout, SSLError, MissingSchema) as e:
-			st.error(f"{e} found! Retrying...")
-			continue
+
+			except (ValueError, Timeout, SSLError, MissingSchema) as e:
+				st.error(f"{e} found! Retrying...")
+				continue
 			
 		df = {key:pd.Series(value, dtype='object') for key, value in serp.items()}
 		serp_df = pd.DataFrame(df)
