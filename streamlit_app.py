@@ -51,7 +51,7 @@ if submit:
 
 		st.write(google_search_url)
 
-		payload = {'api_key': api_key, 'url': google_search_url, 'autoparse': 'true'}
+		payload = {'api_key': api_key, 'url': google_search_url, 'autoparse': 'true', 'country_code':'uk', 'keep_headers':'true'}
 		headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 		proxy_url = requests.get('http://api.scraperapi.com/?', payload, headers=headers)
 		
