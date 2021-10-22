@@ -71,11 +71,13 @@ if submit:
 						serp['competitor'].append("Competitor match found")
 						st.write(f'Competitor match found: {ext.registered_domain}')
 				if not serp['competitor']:
+					# For testing
+					st.write(serp['competitor'])
 					st.write('No competitors found')
 				break
 					
 		except (ValueError, Timeout, SSLError, MissingSchema) as e:
-			st.error(f"{e} found! Continuing...")
+			st.error(f"{e} found! Retrying...")
 			continue
 			
 		df = {key:pd.Series(value, dtype='object') for key, value in serp.items()}
