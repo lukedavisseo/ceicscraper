@@ -47,7 +47,7 @@ if submit:
 		
 		st.header(f'{k}')
 
-		google_search_url = 'http://www.google.com/search?q=' + k.replace(' ', '+')
+		google_search_url = 'http://www.google.com/search?q=' + k.replace(' ', '+') + '&gl=uk'
 
 		st.write(google_search_url)
 
