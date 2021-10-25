@@ -77,10 +77,13 @@ if submit:
 			except (ValueError, Timeout, SSLError, MissingSchema) as e:
 				st.error(f"{e} found! Retrying...")
 				continue
-			
-		df = {key:pd.Series(value, dtype='object') for key, value in serp.items()}
-		serp_df = pd.DataFrame(df)
-		serp_df_csv = serp_df.to_csv()
+		
+		if serp['competitor']:
+			df = {key:pd.Series(value, dtype='object') for key, value in serp.items()}
+			serp_df = pd.DataFrame(df)
+			serp_df_csv = serp_df.to_csv()
+		else:
+			pass
 
 		st.download_button(label=f'Download SERP data for {k}', data=serp_df_csv, file_name=f'{k}_serp.csv', mime='text/csv')
 
