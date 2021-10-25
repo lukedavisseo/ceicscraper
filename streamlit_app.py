@@ -76,6 +76,7 @@ if submit:
 						serp['competitor'].append("Competitor match found")
 						st.write(f'Competitor match found: {ext.registered_domain}')
 				if not serp['competitor']:
+					st.write(link, title, meta_desc)
 					st.write('No competitors found')
 				break
 
