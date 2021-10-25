@@ -62,12 +62,17 @@ if submit:
 				org = response.get("organic_results")
 
 				for results in range(0,len(org)):
-					link = (org[results]['link'])
+					
+					link = org[results]['link']
 					ext = tldextract.extract(link)
+					title = org[results]['title']
+					meta_desc = org[results]['snippet']
+					st.write(link, title, meta_desc)
+					
 					if ext.registered_domain in competitor_urls:
 						serp['urls'].append(link)
-						serp['titles'].append(org[results]['title'])
-						serp['meta_desc'].append(org[results]['snippet'])
+						serp['titles'].append(title)
+						serp['meta_desc'].append(meta_desc)
 						serp['competitor'].append("Competitor match found")
 						st.write(f'Competitor match found: {ext.registered_domain}')
 				if not serp['competitor']:
